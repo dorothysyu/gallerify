@@ -16,8 +16,8 @@ class Spotify():
                                             client_secret=secrets.client_secret, 
                                             redirect_uri='http://localhost:7777/callback', 
                                             scope="user-top-read")
-        self.spotify_object = spotipy.Spotify(auth=oauth_object.get_cached_token()['access_token'])
-        self.top_tracks = self.spotify_object.current_user_top_tracks(time_range="short_term", limit=50)['items']
+        self.spotify_object = spotipy.Spotify(auth=oauth_object.get_access_token(as_dict=False))
+        self.top_tracks = self.spotify_object.current_user_top_tracks(time_range="medium_term", limit=50)['items']
         # List comprehension. For every JSON item in top_tracks, I only want the key value pair 'album'.
         self.top_albums = [x['album'] for x in self.top_tracks]
         """
