@@ -18,6 +18,7 @@ class Spotify():
         # List comprehension. For every JSON item in top_tracks, I only want the key value pair 'album'.
         self.top_albums = [x['album'] for x in self.top_tracks]
         """
+        albums_info attribute:
         Key: album_id
         Value: List
             Index 0: integer representing frequency of album in user's top tracks.
