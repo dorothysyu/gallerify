@@ -1,23 +1,20 @@
 import json
 import spotipy
 """
-Create a 'secrets.py' file in the same directory with three lines containing:
-username='YOUR_USERNAME'
-client_id='CLIENT_ID'
-client_secret='CLIENT_SECRET'
+Set a SPOTIPY_CLIENT_ID environment variable. This can be done in the virtual env.
+https://stackoverflow.com/a/38645983/9809952
 """
-import secrets
+import os
 
 
 class Spotify():
     # Authenticate Spotify.
     def __init__(self):
-        oauth_object = spotipy.SpotifyOAuth(client_id=secrets.client_id, 
-                                            client_secret=secrets.client_secret, 
-                                            redirect_uri='http://localhost:7777/callback', 
-                                            scope="user-top-read")
-        self.spotify_object = spotipy.Spotify(auth=oauth_object.get_access_token(as_dict=False))
-        self.top_tracks = self.spotify_object.current_user_top_tracks(time_range="medium_term", limit=50)['items']
+        oauth_object = spotipy.oauth2.SpotifyPKCE(client_id=os.getenv('SPOTIPY_CLIENT_ID'),
+                                                  redirect_uri='http://localhost:7777/callback',
+                                                  scope="user-top-read")
+        self.spotify_object = spotipy.Spotify(auth=oauth_object.get_access_token())
+        self.top_tracks = self.spotify_object.current_user_top_tracks(time_range="short_term", limit=50)['items']
         # List comprehension. For every JSON item in top_tracks, I only want the key value pair 'album'.
         self.top_albums = [x['album'] for x in self.top_tracks]
         """
