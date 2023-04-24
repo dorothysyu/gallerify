@@ -17,4 +17,5 @@ from api import views
 urlpatterns = [
     path('', views.index),
     path('spotify/', views.spotify),
+    path('draw/', views.draw_gallery),
 ]

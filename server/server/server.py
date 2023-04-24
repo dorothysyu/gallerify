@@ -30,10 +30,12 @@ class Spotify():
         self.albums_info = [] 
         self.set_albums_info()
 
+    #run time complexity is not the most efficient 
     def set_albums_info(self):     
         albums_length = 0
         seen_ids = []
-        for album in self.top_albums:
+        for album in self.top_albums: 
+            if albums_length == 10: break
             album_id = album['id']
             if album_id not in seen_ids:
                 album_obj = {}
