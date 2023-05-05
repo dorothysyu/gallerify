@@ -1,5 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,700;1,700&family=IBM+Plex+Serif:wght@700&display=swap');
+
+/* define custom variables */
+:root {
+  --beige: #FFFAE8;
+  --buhbeige: #FBEBC0;
+  --dark-brown: #472C1B;
+  --bloo: #3B7F98;
+  --dark-bloo: #19404F;
+  --dark-rorange: #AC4113;
+  --darker-rorange: #832800;
+  --dark-red: #630C00;
+}
+
 .App {
+  background-color: var(--dark-red);
+  min-height: 100vh;
   text-align: center;
+  font-family: 'IBM Plex Sans', sans-serif;
+  color: var(--beige);
 }
 
 .App-logo {
@@ -34,5 +52,26 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+#home-frame {
+  display: block;
+  width: 75vw;
+  height: 75vh;
+  margin: auto;
+  padding: 10px;
+  background-color: #FBEBC0;
+
+  > h1 {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 3rem;
+    color: var(--dark-rorange);
+  }
+  
+  > p {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--darker-rorange);
   }
 }
