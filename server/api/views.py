@@ -20,3 +20,10 @@ def draw_gallery(request):
     img = open('images/test_img.jpg', 'rb')
     response = FileResponse(img)
     return response
+
+def draw_group(request):
+    gallery = Gallery(Spotify().albums_info)
+    gallery.draw_group()
+    img = open('images/test_img2.jpg', 'rb')
+    response = FileResponse(img)
+    return response
