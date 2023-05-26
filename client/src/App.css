@@ -12,8 +12,12 @@
   --dark-red: #630C00;
 }
 
-.App {
+html {
   background-color: var(--dark-red);
+}
+
+.App {
+  /* background-color: var(--dark-red); */
   min-height: 100vh;
   text-align: center;
   font-family: 'IBM Plex Sans', sans-serif;
@@ -57,28 +61,32 @@
 }
 
 .container {
-  /* padding-top: 10vh; */
-  /* position: relative; */
+  /* width: 100vw;
+  height: 100vh; */
 }
 
 /* mobile-first sizing */
 #home-frame {
   position: relative;
-  display: block;
+  /* top: 25%; */
+  /* display: block; */
   width: 90vw;
   height: 100vh;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
   padding: 15px;
-  padding-top: 10vh;
   background-image: url('assets/frames/main_frame.png');
+  background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
-  
 }
 
 #home-contents {
-  position: absolute;
-  padding: 1vw 7vh;
+  position: relative;
+  margin: auto;
+  height: 00%;
+  /* padding: 1vw 7vh; */
+
 
   >h1 {
     font-family: 'IBM Plex Serif', serif;
@@ -91,19 +99,30 @@
     font-size: 1.2rem;
     color: var(--darker-rorange);
   }
+}
 
-  >img {
-    /* position: absolute; */
-    width: 200;
-    /* background-color: var(--buhbeige); */
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  #home-frame {
+    
+  }
+
+  #home-contents {
+    >h1, p {
+      font-size: 2.5em;
+    }
   }
 }
 
-/* #home-frame::before {
-  background-color: var(--buhbeige);
-  display: block;
-  content: '';
-  position: absolute;
-  height: inherit;
-  width: inherit;
-} */
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  #home-frame {
+    
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  
+}
