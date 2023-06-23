@@ -6,9 +6,12 @@ const Home = () => {
             <div id="home-contents" className="" style={{ zIndex: 4 }}>
                 <h1>gallerify</h1>
                 <p>what does your music library gallery look like?</p>
-                <Button />
+                <Button
+                    buttonType={'primary'}
+                    >
+                    gallerify me!
+                </Button>
             </div>
-            {/* <img src={frame}/> */}
         </div>
     );
 };

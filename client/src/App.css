@@ -123,6 +123,10 @@ html {
   cursor: pointer;
 }
 
+.primary {
+
+}
+
 .button:hover {
   background-color: var(--dark-bloo);
 }
