@@ -20,8 +20,11 @@ html {
   /* background-color: var(--dark-red); */
   min-height: 100vh;
   text-align: center;
-  font-family: 'IBM Plex Sans', sans-serif;
   color: var(--beige);
+}
+
+.App, .button {
+  font-family: 'IBM Plex Sans', sans-serif;
 }
 
 .App-logo {
@@ -106,6 +109,23 @@ html {
   }
 }
 
+.button {
+  margin: 10px;
+  background-color: var(--bloo);
+  border: 1px;
+  border-radius: 25px;
+  padding: 10px 25px;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: var(--dark-bloo);
+}
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
@@ -114,13 +134,19 @@ html {
   }
 
   #home-contents {
-    >h1, p {
+    >h1 {
       font-size: 5rem;
     }
 
     >p{
       font-size: 2rem;
     }
+  }
+
+  .button {
+    border-radius: 30px;
+    padding: 10px 40px;
+    font-size: 2rem;
   }
 }
 
