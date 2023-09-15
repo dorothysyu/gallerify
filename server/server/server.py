@@ -13,8 +13,10 @@ class Spotify():
         oauth_object = spotipy.oauth2.SpotifyPKCE(client_id=os.getenv('SPOTIPY_CLIENT_ID'),
                                                   redirect_uri='http://localhost:7777/callback',
                                                   scope="user-top-read")
-        self.spotify_object = spotipy.Spotify(auth=oauth_object.get_access_token())
-        self.top_tracks = self.spotify_object.current_user_top_tracks(time_range="short_term", limit=50)['items']
+        self.spotify_object = spotipy.Spotify(
+            auth=oauth_object.get_access_token())
+        self.top_tracks = self.spotify_object.current_user_top_tracks(
+            time_range="short_term", limit=50)['items']
         # List comprehension. For every JSON item in top_tracks, I only want the key value pair 'album'.
         self.top_albums = [track['album'] for track in self.top_tracks]
         """
@@ -27,15 +29,16 @@ class Spotify():
                 'ranking': value
             }
         """
-        self.albums_info = [] 
+        self.albums_info = []
         self.set_albums_info()
 
-    #run time complexity is not the most efficient 
-    def set_albums_info(self):     
+    # run time complexity is not the most efficient
+    def set_albums_info(self):
         albums_length = 0
         seen_ids = []
-        for album in self.top_albums: 
-            if albums_length == 10: break
+        for album in self.top_albums:
+            if albums_length == 15:
+                break
             album_id = album['id']
             if album_id not in seen_ids:
                 album_obj = {}
@@ -52,7 +55,8 @@ class Spotify():
                         dic['frequency'] += 1
 
         return self.albums_info
-    
+
+
 if __name__ == "__main__":
     sp = Spotify()
     with open('dump4.json', 'w') as dump:

@@ -10,14 +10,13 @@ import os
 import random
 import glob
 
-# Overriding the collision method to add padding in the collision detection.
-
-# https://stackoverflow.com/a/31035335/9809952
+"""Overriding the collision method to add padding in the collision detection.
+https://stackoverflow.com/a/31035335/9809952"""
 
 
 def collide(sprite1, sprite2):
     # FOUR CASES
-    padding = 5
+    padding = 10
     if (sprite1.rect.x + sprite1.rect.width + padding >= sprite2.rect.x and  # sprite1 right edge past sprite2 left edge
         # sprite1 left edge past sprite2 right edge
         sprite1.rect.x <= sprite2.rect.x + sprite2.rect.width + padding and
@@ -32,14 +31,14 @@ class Gallery(Group):
     def __init__(self, albums_info):
         self.albums_info = albums_info
         self.group = Group()
-
-        self.background = Surface((2053, 3480), flags=0)
+        self.background = Surface((2500, 3600), flags=0)
+        # width of album is ~0.3 of display, height is ~0.18
         self.background.fill(color=(99, 12, 0))
 
     # Generates position tuple along an archimedean spiral.
     def position_iterator(self, reverse):
         DEFAULT_STEP = 0.2  # radians
-        STEP_SIZE = 10  # relative to base step size of each spiral function
+        STEP_SIZE = 10
         RADIUS = 10
         ECCENTRICITY = 1.7
         t = 0
@@ -56,11 +55,9 @@ class Gallery(Group):
             self._assign_position(album_art=curArt, frame=curFrame)
             album['xy'] = (curArt.rect.x, curArt.rect.y)  # for debugging
             percent_shrink -= .03
-            print(curArt.rect)  # for debugging
-            print("\t" + album['name'])
 
     def _assign_position(self, album_art, frame):
-        position_iterator = self.position_iterator(True)
+        position_iterator = self.position_iterator(random.getrandbits(1))
         frame = frame
         album_art.rect.x, album_art.rect.y = next(position_iterator)
         frame.rect.x, frame.rect.y = album_art.rect.x, album_art.rect.y
@@ -69,6 +66,12 @@ class Gallery(Group):
             frame.rect.x, frame.rect.y = album_art.rect.x, album_art.rect.y
         self.group.add(album_art)
         self.group.add(frame)
+
+    def _add_offset(self, x_offset, y_offset):
+        # loop through each xy in group's sprites, find minimum
+        # set each rect xy to new offset
+        # TODO:
+        return
 
     def draw_group(self):
         self._assign_positions()
@@ -87,12 +90,15 @@ class AlbumArt(Sprite):
         self.rect = self.image.get_rect()
 
     def _load_image(self):
-        img_path = format("images/" + self.album_id+'.jpg')  # for manage.py
+        img_path = f"images/{self.album_id}.jpg"  # for manage.py
         if not os.path.exists(img_path):
             wget.download(self.image_url, out=img_path)
         self.image = pygame.image.load(img_path)
         self.image = pygame.transform.scale(
             self.image, (640 * self.percent_shrink, 640 * self.percent_shrink))
+
+    def update(self, x_offset, y_offset):
+        self.rect.move(x_offset, y_offset)
 
 
 class Frame(Sprite):
@@ -109,6 +115,9 @@ class Frame(Sprite):
         self.image = frame
         self.image = pygame.transform.scale(
             self.image, (670 * self.percent_shrink, 670 * self.percent_shrink))
+
+    def update(self, x_offset, y_offset):
+        self.rect.move(x_offset, y_offset)
 
 
 if __name__ == "__main__":
